@@ -1,8 +1,10 @@
 package HelloWorld;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws InterruptedException {
         Scanner myObj = new Scanner(System.in);
 
         double ceilingLength; double ceilingWidth;
@@ -13,28 +15,30 @@ public class Main {
         int paint = 130;
         //Paint will cover 130 square feet per litre per coat
 
-        System.out.println("Does the room have any windows? (Y/N)");
-        String hasWindows = myObj.nextLine();
+        String hasWindows = "";
+
+        if (!"Y".equals(hasWindows) || !"N".equals(hasWindows) || !"y".equals(hasWindows) || !"n".equals(hasWindows)) {
+            System.out.println("Does the room have a window? (Y/N)");
+            hasWindows = myObj.nextLine();
+        }
+        //System.out.println(hasWindows);
 
         switch (hasWindows) {
-            case "Y":
-            case "y":
+            case "Y", "y" -> {
                 System.out.println("What is length of the window? (ft)");
                 double windowLength = myObj.nextDouble();
                 System.out.println("What is height of the window? (ft)");
                 double windowHeight = myObj.nextDouble();
                 windowArea = windowLength * windowHeight;
-                break;
-            case "N":
-            case "n":
+            }
+            case "N", "n" -> windowArea = 0;
+            default -> {
+                System.out.println("No windows added. If you would like windows please re-run.");
                 windowArea = 0;
-                break;
-            default:
-                System.out.println("No windows added to calculation, if you wanted windows, please re-run and type 'Y' when prompted");
-                windowArea = 0;
-                break;
+            }
         }
-        System.out.println(windowArea);
+
+        //System.out.println(windowArea);
 
         System.out.println("Enter Number of Coats of paint desired");
         coatsNum = myObj.nextInt();
@@ -81,6 +85,34 @@ public class Main {
         System.out.println("Paint required for the walls(excluding woodwork etc) = " + wallPaint + " Litres");
         System.out.println("Paint required for the ceiling = " + ceilingPaint + " Litres");
         System.out.println("Total Paint for walls and ceiling = " + totalPaint + " Litres");
-    }
 
+        System.out.println("How many walls does the room have?");
+        int walls = myObj.nextInt();
+
+        Double[] lengthOfWalls = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+        for (int i = 0; i <= walls; i++) {
+            System.out.println("Enter Length of Wall " + i);
+            double wallLength = myObj.nextDouble();
+            lengthOfWalls[i] = wallLength;
+        }
+        System.out.println(Arrays.toString(lengthOfWalls));
+        /*ArrayList<Double> lengthOfWalls = new ArrayList<>();
+        for (int i = 0; i <= walls; i++) {
+            System.out.println("Enter Length of Wall " + i);
+            double wallLength = myObj.nextDouble();
+            lengthOfWalls.add(wallLength);
+        }*/
+
+        //TO DO: add all items in 'lengthOfWalls' together and append to variable to hold total wall length.
+        //Copy this ^ for Height of the walls, do area calculations with both to conclude program.
+
+        int time = 30;
+        while (time >= 0) {
+            System.out.println("Program will cause your computer to explode when the timer reaches 0");
+            Thread.sleep(1000);
+            System.out.println(time);
+            time--;
+        }
+        System.out.println("BOOM");
+    }
 }
