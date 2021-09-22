@@ -1,11 +1,38 @@
 package HelloWorld;
 import java.util.ArrayList;
 //import java.util.Arrays;
+//import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    Scanner myObj = new Scanner(System.in);
+
+    public double addUpDimensions(int wallCount, int measurement){
+
+        ArrayList<Double> dimensions = new ArrayList<>();
+        if (measurement == 1) {
+            for (int i = 1; i <= wallCount; i++) {
+                System.out.println("Enter Length of Wall " + i);
+                double wallDimension = myObj.nextDouble();
+                dimensions.add(wallDimension);
+            }
+        } else if (measurement == 0) {
+            for (int i = 1; i <= wallCount; i++) {
+                System.out.println("Enter Height of Wall " + i);
+                double wallDimension = myObj.nextDouble();
+                dimensions.add(wallDimension);
+            }
+        }
+        double totalWallDimensions = 0.0;
+        for (int i = 0; i < dimensions.size(); i++) {
+            totalWallDimensions = totalWallDimensions + dimensions.get(i);
+        }
+        return totalWallDimensions;
+    }
+
     public static void main(String[] args) throws InterruptedException {
         Scanner myObj = new Scanner(System.in);
+        Main instance = new Main();
 
         double ceilingLength; double ceilingWidth;
         double coatsNum; double windowArea;
@@ -53,35 +80,8 @@ public class Main {
         System.out.println("How many walls does the room have?");
         int walls = myObj.nextInt();
 
-        //Asks for total length of each wall, adds them to arrayList
-        ArrayList<Double> lengthOfWalls = new ArrayList<>();
-        for (int i = 1; i <= walls; i++) {
-            System.out.println("Enter Length of Wall " + i);
-            double wallLength = myObj.nextDouble();
-            lengthOfWalls.add(wallLength);
-        }
-        //System.out.println(lengthOfWalls);
-
-        //Adds together all wall lengths from arrayList
-        double totalWallLength = 0.0;
-        for (int i = 0; i < lengthOfWalls.size(); i++) {
-            totalWallLength = totalWallLength + lengthOfWalls.get(i);
-        }
-        //System.out.println(totalWallLength);
-
-        ArrayList<Double> heightOfWalls = new ArrayList<>();
-        for (int i = 1; i <= walls; i++) {
-            System.out.println("Enter Height of Wall " + i);
-            double wallHeight = myObj.nextDouble();
-            heightOfWalls.add(wallHeight);
-        }
-
-        double totalWallHeight = 0.0;
-        for (int i = 0; i < lengthOfWalls.size(); i++) {
-            totalWallHeight = totalWallHeight + heightOfWalls.get(i);
-        }
-
-        //System.out.println(totalWallHeight);
+        double totalWallLength = instance.addUpDimensions(walls, 1);
+        double totalWallHeight = instance.addUpDimensions(walls, 0);
 
         double wallArea = (totalWallLength*totalWallHeight) - (doorsArea + windowArea);
         System.out.println("Total wall area = " + wallArea + " square feet");
