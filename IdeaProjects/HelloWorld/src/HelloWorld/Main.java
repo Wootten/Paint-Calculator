@@ -1,5 +1,5 @@
 package HelloWorld;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 //import java.util.Arrays;
 //import java.util.List;
 import java.util.Scanner;
@@ -7,40 +7,17 @@ import java.util.Scanner;
 public class Main {
     Scanner myObj = new Scanner(System.in);
 
-    public double addUpDimensions(int wallCount, int measurement){
-
-        ArrayList<Double> dimensions = new ArrayList<>();
-        if (measurement == 1) {
-            for (int i = 1; i <= wallCount; i++) {
-                System.out.println("Enter Length of Wall " + i);
-                double wallDimension = myObj.nextDouble();
-                dimensions.add(wallDimension);
-            }
-        } else if (measurement == 0) {
-            for (int i = 1; i <= wallCount; i++) {
-                System.out.println("Enter Height of Wall " + i);
-                double wallDimension = myObj.nextDouble();
-                dimensions.add(wallDimension);
-            }
-        }
-        double totalWallDimensions = 0.0;
-        for (int i = 0; i < dimensions.size(); i++) {
-            totalWallDimensions = totalWallDimensions + dimensions.get(i);
-        }
-        return totalWallDimensions;
-    }
-
     public static void main(String[] args) throws InterruptedException {
         Scanner myObj = new Scanner(System.in);
-        Main instance = new Main();
 
         double ceilingLength; double ceilingWidth;
-        double coatsNum; double windowArea;
+        double coatsNum;
 
         int paint = 130;
         //Paint will cover 130 square feet per litre per coat
 
         String hasWindows = "";
+        double windowArea;
 
         if (!"Y".equals(hasWindows) || !"N".equals(hasWindows) || !"y".equals(hasWindows) || !"n".equals(hasWindows)) {
             System.out.println("Does the room have a window? (Y/N)");
@@ -77,11 +54,10 @@ public class Main {
         ceilingWidth = myObj.nextDouble();
         double ceilingArea = ceilingLength*ceilingWidth;
 
-        System.out.println("How many walls does the room have?");
-        int walls = myObj.nextInt();
-
-        double totalWallLength = instance.addUpDimensions(walls, 1);
-        double totalWallHeight = instance.addUpDimensions(walls, 0);
+        Wall test = new Wall();
+        int walls = test.numberOfWalls();
+        double totalWallLength = test.addUpDimensions(walls, 1);
+        double totalWallHeight = test.addUpDimensions(walls, 0);
 
         double wallArea = (totalWallLength*totalWallHeight) - (doorsArea + windowArea);
         System.out.println("Total wall area = " + wallArea + " square feet");
@@ -99,12 +75,13 @@ public class Main {
         System.out.println("Total Paint for walls and ceiling = " + totalPaint + " Litres \n");
 
         int time = 30;
+        System.out.println("Program will cause your computer to explode when the timer reaches 0");
         while (time >= 0) {
-            System.out.println("Program will cause your computer to explode when the timer reaches 0");
             Thread.sleep(1000);
             System.out.println(time);
             time--;
         }
         System.out.println("BOOM");
     }
+
 }
